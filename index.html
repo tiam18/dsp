@@ -188,16 +188,17 @@ const soundBtn = document.getElementById('soundBtn');
 const qqBtn = document.getElementById('qqBtn');
 const nextBtn = document.getElementById('nextBtn');
 const loadingSpinner = document.getElementById('loadingSpinner');
-const defaultVideoSource = 'https://api.yujn.cn/api/zzxjj.php';
+const defaultVideoSource = 'https://qqbyh.cn/API/xjj.php';
+let isMuted = false;
 
-let isMuted = true;
 loadingSpinner.style.display = 'block';
 videoElement.src = `${defaultVideoSource}?t=${Date.now()}`;
 videoElement.muted = isMuted;
+updateSoundIcon();
 
 function loadVideo() {
 videoElement.src = `${defaultVideoSource}?t=${Date.now()}`;
-videoElement.muted = true;
+videoElement.muted = isMuted;
 loadingSpinner.style.display = 'block';
 updateSoundIcon();
 }
@@ -207,11 +208,7 @@ soundBtn.classList.toggle('muted', isMuted);
 }
 
 videoElement.addEventListener('click', () => {
-if (videoElement.paused) {
-videoElement.play();
-} else {
-videoElement.pause();
-}
+videoElement.paused ? videoElement.play() : videoElement.pause();
 });
 
 videoElement.addEventListener('ended', loadVideo);
@@ -222,7 +219,7 @@ updateSoundIcon();
 });
 
 qqBtn.addEventListener('click', () => {
-window.open('https://qm.qq.com/q/HLlKqAHda');
+window.open('http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=Oivt0Fpi-Y8J3j2VOPgltS7d4ybBWBAf&authKey');
 });
 
 nextBtn.addEventListener('click', loadVideo);
@@ -232,19 +229,15 @@ loadingSpinner.style.display = 'block';
 
 videoElement.addEventListener('playing', () => {
 loadingSpinner.style.display = 'none';
-isMuted = false;
-videoElement.muted = isMuted;
 updateSoundIcon();
 });
 
 videoElement.addEventListener('loadeddata', () => {
 loadingSpinner.style.display = 'none';
 });
-
 videoElement.addEventListener('error', () => {
 loadingSpinner.style.display = 'none';
 });
-updateSoundIcon();
 </script>
 </body>
 </html>
